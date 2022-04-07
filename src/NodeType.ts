@@ -1,0 +1,16 @@
+export enum NodeType {
+  And,
+  AttributeExists,
+  AttributeNotExists,
+  AttributeType,
+  BeginsWith,
+  Between,
+  BinaryComparison,
+  Contains,
+  In,
+  Name,
+  Not,
+  Or,
+  Size,
+  Value,
+}
