@@ -1,15 +1,12 @@
-import { InExpression, ValueExpression } from "../expressions/Expression";
+import { LogicValueExpression } from "../expressions/Expression";
 import { ExpressionContext } from "../expressions/ExpressionContext";
 import { NodeType } from "../expressions/NodeType";
 import { ExpressionNodeBase } from "./ExpressionNodeBase";
 
-export class InExpressionNode<T>
-  extends ExpressionNodeBase<NodeType.In>
-  implements InExpression<T>
-{
+export class InExpressionNode<T> extends ExpressionNodeBase<NodeType.In> {
   constructor(
-    public readonly value: ValueExpression<T>,
-    public readonly match: ValueExpression<T>[]
+    public readonly value: LogicValueExpression<T>,
+    public readonly match: LogicValueExpression<T>[]
   ) {
     super(NodeType.In);
   }

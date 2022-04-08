@@ -1,8 +1,10 @@
 import {
   ConstantValueExpression,
+  Expression,
   LogicExpression,
-  ValueExpression,
-  ValueExpressionNodeType,
+  LogicValueExpression,
+  UpdateValueExpression,
+  ValueLogicBuilder,
 } from "../expressions/Expression";
 import { ExpressionContext } from "../expressions/ExpressionContext";
 import { NodeType } from "../expressions/NodeType";
@@ -10,27 +12,40 @@ import { BetweenExpressionNode } from "./BetweenExpressionNode";
 import { BinaryExpressionNode } from "./BinaryExpressionNode";
 import { ExpressionNodeBase } from "./ExpressionNodeBase";
 import { InExpressionNode } from "./InExpressionNode";
+import { PathOperandFunctionExpressionNode } from "./PathOperandFunctionExpressionNode";
 
-export abstract class ValueExpressionNodeBase<
-  Node extends ValueExpressionNodeType,
-  Value
-> extends ExpressionNodeBase<Node> {
+export abstract class ValueExpressionNodeBase<Node extends NodeType, Value>
+  extends ExpressionNodeBase<Node>
+  implements ValueLogicBuilder<Value>
+{
   constructor(type: Node) {
     super(type);
   }
 
+  public add(
+    value: Value | UpdateValueExpression<Value>
+  ): UpdateValueExpression<Value> {
+    return new BinaryExpressionNode(
+      NodeType.Add,
+      this as UpdateValueExpression<Value>,
+      wrapConst(value) as UpdateValueExpression<Value>
+    );
+  }
+
   public between(
-    lower: Value | ValueExpression<Value>,
-    upper: Value | ValueExpression<Value>
+    lower: Value | LogicValueExpression<Value>,
+    upper: Value | LogicValueExpression<Value>
   ): LogicExpression {
     return new BetweenExpressionNode(this, wrapConst(lower), wrapConst(upper));
   }
 
-  public equals(value: Value | ValueExpression<Value>): LogicExpression {
+  public equals(value: Value | LogicValueExpression<Value>): LogicExpression {
     return new BinaryExpressionNode(NodeType.Equal, this, wrapConst(value));
   }
 
-  public greaterThan(value: Value | ValueExpression<Value>): LogicExpression {
+  public greaterThan(
+    value: Value | LogicValueExpression<Value>
+  ): LogicExpression {
     return new BinaryExpressionNode(
       NodeType.GreaterThan,
       this,
@@ -39,7 +54,7 @@ export abstract class ValueExpressionNodeBase<
   }
 
   public greaterOrEqual(
-    value: Value | ValueExpression<Value>
+    value: Value | LogicValueExpression<Value>
   ): LogicExpression {
     return new BinaryExpressionNode(
       NodeType.GreaterOrEqual,
@@ -48,11 +63,13 @@ export abstract class ValueExpressionNodeBase<
     );
   }
 
-  public in(values: (Value | ValueExpression<Value>)[]): LogicExpression {
+  public in(values: (Value | LogicValueExpression<Value>)[]): LogicExpression {
     return new InExpressionNode(this, values.map(wrapConst));
   }
 
-  public lessOrEqual(value: Value | ValueExpression<Value>): LogicExpression {
+  public lessOrEqual(
+    value: Value | LogicValueExpression<Value>
+  ): LogicExpression {
     return new BinaryExpressionNode(
       NodeType.LessOrEqual,
       this,
@@ -60,12 +77,32 @@ export abstract class ValueExpressionNodeBase<
     );
   }
 
-  public lessThan(value: Value | ValueExpression<Value>): LogicExpression {
+  public lessThan(value: Value | LogicValueExpression<Value>): LogicExpression {
     return new BinaryExpressionNode(NodeType.LessThan, this, wrapConst(value));
   }
 
-  public notEqual(value: Value | ValueExpression<Value>): LogicExpression {
+  public listAppend(
+    value: Value | UpdateValueExpression<Value>
+  ): UpdateValueExpression<Value> {
+    return new PathOperandFunctionExpressionNode(
+      NodeType.ListAppend,
+      this,
+      wrapConst(value)
+    );
+  }
+
+  public notEqual(value: Value | LogicValueExpression<Value>): LogicExpression {
     return new BinaryExpressionNode(NodeType.NotEqual, this, wrapConst(value));
+  }
+
+  public subtract(
+    value: Value | UpdateValueExpression<Value>
+  ): UpdateValueExpression<Value> {
+    return new BinaryExpressionNode(
+      NodeType.Subtract,
+      this as UpdateValueExpression<Value>,
+      wrapConst(value) as UpdateValueExpression<Value>
+    );
   }
 }
 
@@ -82,11 +119,11 @@ export class ConstantValueExpressionNode<T>
   }
 }
 
-export function wrapConst<T>(
-  value: ValueExpression<T> | T
-): ValueExpression<T> {
+export function wrapConst<T, N extends NodeType>(
+  value: T | Expression<N>
+): Expression<N | NodeType.ConstantValue> & ValueLogicBuilder<T> {
   if (value instanceof ValueExpressionNodeBase) {
     return value;
   }
-  return new ConstantValueExpressionNode(value as T);
+  return new ConstantValueExpressionNode(value);
 }

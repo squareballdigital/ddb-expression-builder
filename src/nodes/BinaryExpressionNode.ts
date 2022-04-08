@@ -5,6 +5,7 @@ import { NodeType } from "../expressions/NodeType";
 import { ExpressionNodeBase } from "./ExpressionNodeBase";
 
 export const BinaryOperators = {
+  [NodeType.Add]: "-",
   [NodeType.And]: "AND",
   [NodeType.Equal]: "=",
   [NodeType.GreaterOrEqual]: ">=",
@@ -13,6 +14,7 @@ export const BinaryOperators = {
   [NodeType.LessThan]: "<",
   [NodeType.NotEqual]: "<>",
   [NodeType.Or]: "OR",
+  [NodeType.Subtract]: "-",
 };
 
 export type BinaryExpressionNodeType = keyof typeof BinaryOperators;

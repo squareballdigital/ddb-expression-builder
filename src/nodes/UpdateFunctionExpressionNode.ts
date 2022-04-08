@@ -1,31 +1,33 @@
-import { NameExpression, ValueExpression } from "../expressions/Expression";
+import {
+  LogicValueExpression,
+  NameExpression,
+} from "../expressions/Expression";
 import { ExpressionContext } from "../expressions/ExpressionContext";
 import { NodeType } from "../expressions/NodeType";
 import { ExpressionNodeBase } from "./ExpressionNodeBase";
 
-const PathOperandFunctionNames = {
-  [NodeType.AttributeType]: "attribute_type",
-  [NodeType.BeginsWith]: "begins_with",
-  [NodeType.Contains]: "contains",
+const UpdateFunctionNames = {
+  [NodeType.IfNotExists]: "if_not_exists",
+  [NodeType.ListAppend]: "list_append",
 };
 
-export type PathOperandFunctionNodeType = keyof typeof PathOperandFunctionNames;
+export type UpdateFunctionNodeType = keyof typeof UpdateFunctionNames;
 
-export class PathOperandFunctionExpressionNode<
-  Node extends PathOperandFunctionNodeType,
+export class UpdateFunctionExpressionNode<
+  Node extends UpdateFunctionNodeType,
   T
 > extends ExpressionNodeBase<Node> {
   constructor(
     type: Node,
     public readonly path: NameExpression,
-    public readonly operand: ValueExpression<T>
+    public readonly operand: LogicValueExpression<T>
   ) {
     super(type);
   }
 
   public override build(ctx: ExpressionContext<string[]>): string {
     return this.format(ctx, [
-      PathOperandFunctionNames[this.type],
+      UpdateFunctionNames[this.type],
       "(",
       this.path,
       ", ",

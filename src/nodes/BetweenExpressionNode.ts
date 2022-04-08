@@ -1,16 +1,15 @@
-import { BetweenExpression, ValueExpression } from "../expressions/Expression";
+import { LogicValueExpression } from "../expressions/Expression";
 import { ExpressionContext } from "../expressions/ExpressionContext";
 import { NodeType } from "../expressions/NodeType";
 import { ExpressionNodeBase } from "./ExpressionNodeBase";
 
-export class BetweenExpressionNode<T>
-  extends ExpressionNodeBase<NodeType.Between>
-  implements BetweenExpression
-{
+export class BetweenExpressionNode<
+  T
+> extends ExpressionNodeBase<NodeType.Between> {
   constructor(
-    public readonly value: ValueExpression<T>,
-    public readonly lower: ValueExpression<T>,
-    public readonly upper: ValueExpression<T>
+    public readonly value: LogicValueExpression<T>,
+    public readonly lower: LogicValueExpression<T>,
+    public readonly upper: LogicValueExpression<T>
   ) {
     super(NodeType.Between);
   }

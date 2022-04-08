@@ -1,13 +1,15 @@
 import {
   ConstantValueExpression,
   LogicExpression,
-  ValueExpression,
+  LogicValueExpression,
+  UpdateValueExpression,
 } from "../expressions/Expression";
 import { ExpressionContext } from "../expressions/ExpressionContext";
 import { NodeType } from "../expressions/NodeType";
 import { PathFunctionExpressionNode } from "./PathFunctionExpressionNode";
-import { PathOperandFunctionExpressionNode } from "./PathOperandExpressionNode";
+import { PathOperandFunctionExpressionNode } from "./PathOperandFunctionExpressionNode";
 import { SizeExpressionNode } from "./SizeExpressionNode";
+import { UpdateFunctionExpressionNode } from "./UpdateFunctionExpressionNode";
 import { ValueExpressionNodeBase, wrapConst } from "./ValueExpressionNodeBase";
 
 export class NameExpressionNode<Value> extends ValueExpressionNodeBase<
@@ -42,7 +44,7 @@ export class NameExpressionNode<Value> extends ValueExpressionNodeBase<
     return new PathFunctionExpressionNode(NodeType.AttributeExists, this);
   }
 
-  public hasType(type: string | ValueExpression<string>): LogicExpression {
+  public hasType(type: string | LogicValueExpression<string>): LogicExpression {
     return new PathOperandFunctionExpressionNode(
       NodeType.AttributeType,
       this,
@@ -50,11 +52,21 @@ export class NameExpressionNode<Value> extends ValueExpressionNodeBase<
     );
   }
 
+  public ifNotExists(
+    value: Value | UpdateValueExpression<Value>
+  ): UpdateValueExpression<Value> {
+    return new UpdateFunctionExpressionNode(
+      NodeType.IfNotExists,
+      this,
+      wrapConst(value)
+    );
+  }
+
   public notExists(): LogicExpression {
     return new PathFunctionExpressionNode(NodeType.AttributeNotExists, this);
   }
 
-  public size(): ValueExpression<number> {
+  public size(): LogicValueExpression<number> {
     return new SizeExpressionNode(this);
   }
 
