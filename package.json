@@ -2,7 +2,11 @@
   "name": "dynamodb-plus",
   "private": true,
   "type": "module",
+  "scripts": {
+    "compile": "tsc"
+  },
   "devDependencies": {
+    "@types/node": "^17.0.23",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
     "@typescript-eslint/parser": "^5.17.0",
     "eslint": "^8.12.0",

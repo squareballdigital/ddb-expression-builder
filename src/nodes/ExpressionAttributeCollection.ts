@@ -1,10 +1,23 @@
-export class ExpressionAttributeCollection<Value> {
+export type ExpressionAttributeCollectionInit<Value> = Iterable<
+  [string, Value]
+>;
+
+export class ExpressionAttributeCollection<Value>
+  implements Iterable<[string, Value]>
+{
   private readonly prefix: string;
   private readonly values = new Map<string, Value>();
 
-  constructor(prefix: string, values?: Iterable<[string, Value]>) {
+  constructor(
+    prefix: string,
+    values?: ExpressionAttributeCollectionInit<Value>
+  ) {
     this.prefix = prefix;
     this.values = new Map<string, Value>(values ?? []);
+  }
+
+  public [Symbol.iterator](): Iterator<[string, Value], any, undefined> {
+    return this.values[Symbol.iterator]();
   }
 
   public add(value: Value): string {
