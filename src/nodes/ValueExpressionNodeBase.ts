@@ -1,7 +1,7 @@
 import {
   LogicExpression,
   ValueExpression,
-  ValueExpressionBase,
+  ValueExpressionNodeType,
 } from "../expressions/Expression.js";
 import { NodeType } from "../expressions/NodeType.js";
 import { BetweenExpressionNode } from "./BetweenExpressionNode.js";
@@ -10,10 +10,10 @@ import { ExpressionNodeBase } from "./ExpressionNodeBase.js";
 import { InExpressionNode } from "./InExpressionNode.js";
 import { wrapConst } from "./wrapConst.js";
 
-export abstract class ValueExpressionNodeBase<Node extends NodeType, Value>
-  extends ExpressionNodeBase<Node>
-  implements ValueExpressionBase<Node, Value>
-{
+export abstract class ValueExpressionNodeBase<
+  Node extends ValueExpressionNodeType,
+  Value
+> extends ExpressionNodeBase<Node> {
   constructor(type: Node) {
     super(type);
   }

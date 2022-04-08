@@ -1,12 +1,46 @@
 import { ExpressionContext } from "./ExpressionContext.js";
 import { NodeType } from "./NodeType.js";
 
+export type LogicExpressionTermNodeType =
+  | NodeType.AttributeExists
+  | NodeType.AttributeNotExists
+  | NodeType.AttributeType
+  | NodeType.BeginsWith
+  | NodeType.Between
+  | NodeType.Contains
+  | NodeType.Equal
+  | NodeType.GreaterOrEqual
+  | NodeType.GreaterThan
+  | NodeType.In
+  | NodeType.LessOrEqual
+  | NodeType.LessThan
+  | NodeType.NotEqual;
+
+export type LogicExpressionNodeType =
+  | LogicExpressionTermNodeType
+  | NodeType.And
+  | NodeType.Not
+  | NodeType.Or;
+
+export type ValueExpressionNodeType =
+  | NodeType.ConstantValue
+  | NodeType.Name
+  | NodeType.Size;
+
 export interface Expression<T extends NodeType = NodeType> {
   build(ctx: ExpressionContext, parent?: Expression): string;
   type: T;
 }
 
-export interface LogicExpressionBuilder<T> {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface LogicExpression<
+  N extends LogicExpressionNodeType = LogicExpressionNodeType
+> extends Expression<N> {}
+
+export interface ValueExpression<
+  T,
+  N extends ValueExpressionNodeType = ValueExpressionNodeType
+> extends Expression<N> {
   between(
     lower: ConstantValueExpression<T> | T,
     upper: ConstantValueExpression<T> | T
@@ -19,19 +53,6 @@ export interface LogicExpressionBuilder<T> {
   lessThan(value: ValueExpression<T> | T): LogicExpression;
   notEqual(value: ValueExpression<T> | T): LogicExpression;
 }
-
-export interface PathLogicExpressionBuilder<T> {
-  beginsWith(value: ConstantValueExpression<T> | T): LogicExpression;
-  contains(value: ConstantValueExpression<T> | T): LogicExpression;
-  exists(): LogicExpression;
-  hasType(type: ConstantValueExpression<string> | string): LogicExpression;
-  notExists(): LogicExpression;
-  size(): ValueExpression<number>;
-}
-
-export interface ValueExpressionBase<Node extends NodeType, T>
-  extends Expression<Node>,
-    LogicExpressionBuilder<T> {}
 
 /////////////////////////////
 
@@ -70,7 +91,7 @@ export interface BetweenExpression<T = any>
 }
 
 export interface ConstantValueExpression<T = any>
-  extends ValueExpressionBase<NodeType.ConstantValue, T> {
+  extends ValueExpression<T, NodeType.ConstantValue> {
   value: T;
 }
 
@@ -115,9 +136,14 @@ export interface LessThanExpression<T = any>
 }
 
 export interface NameExpression<T = any, N extends string[] = string[]>
-  extends ValueExpressionBase<NodeType.Name, T>,
-    PathLogicExpressionBuilder<T> {
+  extends ValueExpression<T, NodeType.Name> {
   name: N;
+  beginsWith(value: ConstantValueExpression<T> | T): LogicExpression;
+  contains(value: ConstantValueExpression<T> | T): LogicExpression;
+  exists(): LogicExpression;
+  hasType(type: ConstantValueExpression<string> | string): LogicExpression;
+  notExists(): LogicExpression;
+  size(): ValueExpression<number>;
 }
 
 export interface NotExpression extends Expression<NodeType.Not> {
@@ -136,35 +162,6 @@ export interface OrExpression extends Expression<NodeType.Or> {
 }
 
 export interface SizeExpression<N extends string[] = string[]>
-  extends ValueExpressionBase<NodeType.Size, number> {
+  extends ValueExpression<number, NodeType.Size> {
   path: NameExpression<N>;
 }
-
-/////////////////////////////
-
-export type LogicExpression =
-  | AndExpression
-  | NotExpression
-  | OrExpression
-  | LogicExpressionTerm;
-
-export type LogicExpressionTerm =
-  | AttributeExistsExpression
-  | AttributeNotExistsExpression
-  | AttributeTypeExpression
-  | BeginsWithExpression
-  | BetweenExpression
-  | ContainsExpression
-  | EqualExpression
-  | GreaterOrEqualExpression
-  | GreaterThanExpression
-  | InExpression
-  | LessOrEqualExpression
-  | LessThanExpression
-  | NotEqualExpression;
-
-export type ValueExpression<T = any> =
-  | ConstantValueExpression<T>
-  | NameExpression<T>
-  | SizeExpression
-  | ValueExpressionBase<NodeType, T>;

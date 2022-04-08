@@ -1,7 +1,6 @@
 import {
   ConstantValueExpression,
   LogicExpression,
-  NameExpression,
   ValueExpression,
 } from "../expressions/Expression.js";
 import { ExpressionContext } from "../expressions/ExpressionContext.js";
@@ -12,10 +11,10 @@ import { SizeExpressionNode } from "./SizeExpressionNode.js";
 import { ValueExpressionNodeBase } from "./ValueExpressionNodeBase.js";
 import { wrapConst } from "./wrapConst.js";
 
-export class NameExpressionNode<Value>
-  extends ValueExpressionNodeBase<NodeType.Name, Value>
-  implements NameExpression<Value>
-{
+export class NameExpressionNode<Value> extends ValueExpressionNodeBase<
+  NodeType.Name,
+  Value
+> {
   constructor(public readonly name: string[]) {
     super(NodeType.Name);
   }
