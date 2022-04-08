@@ -1,14 +1,15 @@
 import {
+  ConstantValueExpression,
   LogicExpression,
   ValueExpression,
   ValueExpressionNodeType,
-} from "../expressions/Expression.js";
-import { NodeType } from "../expressions/NodeType.js";
-import { BetweenExpressionNode } from "./BetweenExpressionNode.js";
-import { BinaryExpressionNode } from "./BinaryExpressionNode.js";
-import { ExpressionNodeBase } from "./ExpressionNodeBase.js";
-import { InExpressionNode } from "./InExpressionNode.js";
-import { wrapConst } from "./wrapConst.js";
+} from "../expressions/Expression";
+import { ExpressionContext } from "../expressions/ExpressionContext";
+import { NodeType } from "../expressions/NodeType";
+import { BetweenExpressionNode } from "./BetweenExpressionNode";
+import { BinaryExpressionNode } from "./BinaryExpressionNode";
+import { ExpressionNodeBase } from "./ExpressionNodeBase";
+import { InExpressionNode } from "./InExpressionNode";
 
 export abstract class ValueExpressionNodeBase<
   Node extends ValueExpressionNodeType,
@@ -66,4 +67,26 @@ export abstract class ValueExpressionNodeBase<
   public notEqual(value: Value | ValueExpression<Value>): LogicExpression {
     return new BinaryExpressionNode(NodeType.NotEqual, this, wrapConst(value));
   }
+}
+
+export class ConstantValueExpressionNode<T>
+  extends ValueExpressionNodeBase<NodeType.ConstantValue, T>
+  implements ConstantValueExpression<T>
+{
+  constructor(public readonly value: T) {
+    super(NodeType.ConstantValue);
+  }
+
+  public override build(ctx: ExpressionContext): string {
+    return ctx.addValue(this.value);
+  }
+}
+
+export function wrapConst<T>(
+  value: ValueExpression<T> | T
+): ValueExpression<T> {
+  if (value instanceof ValueExpressionNodeBase) {
+    return value;
+  }
+  return new ConstantValueExpressionNode(value as T);
 }

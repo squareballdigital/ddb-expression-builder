@@ -1,4 +1,4 @@
-import { NodeType } from "./NodeType.js";
+import { NodeType } from "./NodeType";
 
 // see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.OperatorsAndFunctions.html#Expressions.OperatorsAndFunctions.Precedence
 

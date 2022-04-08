@@ -1,6 +1,6 @@
-import { Expression } from "../expressions/Expression.js";
-import { ExpressionContext } from "../expressions/ExpressionContext.js";
-import { NodeType } from "../expressions/NodeType.js";
+import { Expression } from "../expressions/Expression";
+import { ExpressionContext } from "../expressions/ExpressionContext";
+import { NodeType } from "../expressions/NodeType";
 
 export abstract class ExpressionNodeBase<T extends NodeType>
   implements Expression<T>

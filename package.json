@@ -1,7 +1,6 @@
 {
   "name": "dynamodb-plus",
   "private": true,
-  "type": "module",
   "scripts": {
     "compile": "tsc"
   },

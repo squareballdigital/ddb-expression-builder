@@ -1,14 +1,14 @@
-import { DeepIndexType, DeepKeyPaths } from "../expressions/DeepKeyPaths.js";
+import { DeepIndexType, DeepKeyPaths } from "../expressions/DeepKeyPaths";
 import {
   Expression,
   LogicExpression,
   NameExpression,
-} from "../expressions/Expression.js";
-import { ExpressionContext } from "../expressions/ExpressionContext.js";
-import { NodeType } from "../expressions/NodeType.js";
-import { BinaryExpressionNode } from "./BinaryExpressionNode.js";
-import { NameExpressionNode } from "./NameExpressionNode.js";
-import { NotExpressionNode } from "./NotExpressionNode.js";
+} from "../expressions/Expression";
+import { ExpressionContext } from "../expressions/ExpressionContext";
+import { NodeType } from "../expressions/NodeType";
+import { BinaryExpressionNode } from "./BinaryExpressionNode";
+import { NameExpressionNode } from "./NameExpressionNode";
+import { NotExpressionNode } from "./NotExpressionNode";
 
 export class ExpressionBuilder<T> {
   public static build<T>(

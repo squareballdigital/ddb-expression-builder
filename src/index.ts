@@ -1,5 +1,5 @@
-import { ExpressionBuilder } from "./nodes/ExpressionBuilder.js";
-import { ExpressionDictionary } from "./nodes/ExpressionDictionary.js";
+import { ExpressionBuilder } from "./nodes/ExpressionBuilder";
+import { ExpressionDictionary } from "./nodes/ExpressionDictionary";
 
 const repo = {
   id: 42,
@@ -16,7 +16,7 @@ const repo = {
 
 type Repo = typeof repo;
 
-const ctx = new ExpressionDictionary();
+const ctx = new ExpressionDictionary(undefined, undefined, true);
 
 const expr = ExpressionBuilder.build<Repo>(
   (b) =>
@@ -27,7 +27,13 @@ const expr = ExpressionBuilder.build<Repo>(
   ctx
 );
 
-console.log({
-  ctx,
-  expr,
-});
+console.log(
+  JSON.stringify(
+    {
+      ctx,
+      expr,
+    },
+    null,
+    2
+  )
+);

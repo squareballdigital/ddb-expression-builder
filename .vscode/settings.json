@@ -8,6 +8,5 @@
     "editor.codeActionsOnSave": {
       "source.organizeImports": true
     }
-  },
-  "typescript.preferences.importModuleSpecifierEnding": "js"
+  }
 }

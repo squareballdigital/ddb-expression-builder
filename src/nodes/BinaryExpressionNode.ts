@@ -1,8 +1,8 @@
-import { Expression } from "../expressions/Expression.js";
-import { ExpressionContext } from "../expressions/ExpressionContext.js";
-import { getPrecedence } from "../expressions/getPrecedence.js";
-import { NodeType } from "../expressions/NodeType.js";
-import { ExpressionNodeBase } from "./ExpressionNodeBase.js";
+import { Expression } from "../expressions/Expression";
+import { ExpressionContext } from "../expressions/ExpressionContext";
+import { getPrecedence } from "../expressions/getPrecedence";
+import { NodeType } from "../expressions/NodeType";
+import { ExpressionNodeBase } from "./ExpressionNodeBase";
 
 export const BinaryOperators = {
   [NodeType.And]: "AND",

@@ -1,7 +1,7 @@
-import { NameExpression, ValueExpression } from "../expressions/Expression.js";
-import { ExpressionContext } from "../expressions/ExpressionContext.js";
-import { NodeType } from "../expressions/NodeType.js";
-import { ExpressionNodeBase } from "./ExpressionNodeBase.js";
+import { NameExpression, ValueExpression } from "../expressions/Expression";
+import { ExpressionContext } from "../expressions/ExpressionContext";
+import { NodeType } from "../expressions/NodeType";
+import { ExpressionNodeBase } from "./ExpressionNodeBase";
 
 const PathOperandFunctionNames = {
   [NodeType.AttributeType]: "attribute_type",

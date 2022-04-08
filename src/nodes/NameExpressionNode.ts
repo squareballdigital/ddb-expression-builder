@@ -2,14 +2,13 @@ import {
   ConstantValueExpression,
   LogicExpression,
   ValueExpression,
-} from "../expressions/Expression.js";
-import { ExpressionContext } from "../expressions/ExpressionContext.js";
-import { NodeType } from "../expressions/NodeType.js";
-import { PathFunctionExpressionNode } from "./PathFunctionExpressionNode.js";
-import { PathOperandFunctionExpressionNode } from "./PathOperandExpressionNode.js";
-import { SizeExpressionNode } from "./SizeExpressionNode.js";
-import { ValueExpressionNodeBase } from "./ValueExpressionNodeBase.js";
-import { wrapConst } from "./wrapConst.js";
+} from "../expressions/Expression";
+import { ExpressionContext } from "../expressions/ExpressionContext";
+import { NodeType } from "../expressions/NodeType";
+import { PathFunctionExpressionNode } from "./PathFunctionExpressionNode";
+import { PathOperandFunctionExpressionNode } from "./PathOperandExpressionNode";
+import { SizeExpressionNode } from "./SizeExpressionNode";
+import { ValueExpressionNodeBase, wrapConst } from "./ValueExpressionNodeBase";
 
 export class NameExpressionNode<Value> extends ValueExpressionNodeBase<
   NodeType.Name,

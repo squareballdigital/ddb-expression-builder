@@ -1,5 +1,5 @@
-import { ExpressionContext } from "./ExpressionContext.js";
-import { NodeType } from "./NodeType.js";
+import { ExpressionContext } from "./ExpressionContext";
+import { NodeType } from "./NodeType";
 
 export type LogicExpressionTermNodeType =
   | NodeType.AttributeExists

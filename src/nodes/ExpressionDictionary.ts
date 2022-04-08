@@ -1,8 +1,8 @@
-import { ExpressionContext } from "../expressions/ExpressionContext.js";
+import { ExpressionContext } from "../expressions/ExpressionContext";
 import {
   ExpressionAttributeCollection,
   ExpressionAttributeCollectionInit,
-} from "./ExpressionAttributeCollection.js";
+} from "./ExpressionAttributeCollection";
 
 export class ExpressionDictionary implements ExpressionContext {
   private readonly names: ExpressionAttributeCollection<string>;
@@ -10,9 +10,10 @@ export class ExpressionDictionary implements ExpressionContext {
 
   constructor(
     names?: ExpressionAttributeCollectionInit<string>,
-    values?: ExpressionAttributeCollectionInit<any>
+    values?: ExpressionAttributeCollectionInit<any>,
+    preserveNames?: boolean
   ) {
-    this.names = new ExpressionAttributeCollection("#", names);
+    this.names = new ExpressionAttributeCollection("#", names, preserveNames);
     this.values = new ExpressionAttributeCollection(":", values);
   }
 

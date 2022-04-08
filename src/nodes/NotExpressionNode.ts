@@ -1,7 +1,7 @@
-import { LogicExpression } from "../expressions/Expression.js";
-import { ExpressionContext } from "../expressions/ExpressionContext.js";
-import { NodeType } from "../expressions/NodeType.js";
-import { ExpressionNodeBase } from "./ExpressionNodeBase.js";
+import { LogicExpression } from "../expressions/Expression";
+import { ExpressionContext } from "../expressions/ExpressionContext";
+import { NodeType } from "../expressions/NodeType";
+import { ExpressionNodeBase } from "./ExpressionNodeBase";
 
 export class NotExpressionNode extends ExpressionNodeBase<NodeType.Not> {
   constructor(public readonly operand: LogicExpression) {
