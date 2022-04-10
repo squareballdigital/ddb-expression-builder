@@ -8,6 +8,6 @@ export * from "./builders/UpdateExpressionBuilder.js";
 export * from "./expressions/expressions.js";
 export * from "./util/DeepKeyPaths.js";
 export * from "./util/ExpressionAttributeCollection.js";
+export * from "./util/ExpressionAttributeMap.js";
 export * from "./util/ExpressionCommandInputBase.js";
-export * from "./util/ExpressionDictionary.js";
 export * from "./util/getPrecedence.js";

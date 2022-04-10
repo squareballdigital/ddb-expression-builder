@@ -77,17 +77,17 @@ export interface NameUpdateBuilder<
 > {
   addTo(
     value: Node<UpdateValueExpression<Name, Value>> | Value
-  ): Node<AddClauseExpression>;
+  ): Node<AddClauseExpression<Name>>;
   deleteFrom(
     value: Node<UpdateValueExpression<Name, Value>> | Value
-  ): Node<DeleteClauseExpression>;
+  ): Node<DeleteClauseExpression<Name>>;
   ifNotExists(
     value: Node<UpdateValueExpression<Name, Value>> | Value
   ): UpdateValueNode<Name, Value>;
-  remove(): Node<RemoveClauseExpression>;
+  remove(): Node<RemoveClauseExpression<Name>>;
   set(
     value: Node<UpdateValueExpression<Name, Value>> | Value
-  ): Node<SetClauseExpression>;
+  ): Node<SetClauseExpression<Name>>;
 }
 
 export interface NameLogicBuilder<

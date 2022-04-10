@@ -3,9 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build": "npm run clean && npm run index && npm run compile && npm run lint && npm run test",
+    "clean": "rm -rf lib/",
     "compile": "tsc",
     "index": "node makeIndex.js src/",
-    "test": "jest"
+    "lint": "eslint src/ --ext=ts",
+    "test": "jest --verbose"
   },
   "devDependencies": {
     "@sucrase/jest-plugin": "^2.2.0",
