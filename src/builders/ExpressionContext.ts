@@ -1,4 +1,6 @@
-export interface ExpressionContext<N extends string[] = string[]> {
-  addName(...name: N): string;
-  addValue(value: unknown): string;
+import { ExpressionAttributeMap } from "../util/ExpressionAttributeMap.js";
+
+export interface ExpressionContext {
+  names: ExpressionAttributeMap<string>;
+  values: ExpressionAttributeMap<any>;
 }

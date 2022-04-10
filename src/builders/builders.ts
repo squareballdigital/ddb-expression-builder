@@ -58,7 +58,7 @@ export interface ValueLogicBuilder<
     value: Node<LogicValueExpression<Name, Value>> | Value
   ): Node<LogicExpression<Name>>;
   in(
-    values: (LogicValueExpression<Name, Value> | Value)[]
+    ...values: (LogicValueExpression<Name, Value> | Value)[]
   ): Node<LogicExpression<Name>>;
   lessOrEqual(
     value: Node<LogicValueExpression<Name, Value>> | Value

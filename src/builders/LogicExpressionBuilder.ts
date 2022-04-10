@@ -79,7 +79,7 @@ export class LogicExpressionBuilder<T> {
         ]);
 
       case NodeType.ConstantValue:
-        return ctx.addValue(node.value);
+        return ctx.values.add(node.value);
 
       case NodeType.Contains:
         return formatExpr([
@@ -151,7 +151,7 @@ export class LogicExpressionBuilder<T> {
         );
 
       case NodeType.Name:
-        return ctx.addName(...node.name);
+        return node.name.map((x) => ctx.names.add(x)).join(".");
 
       case NodeType.Not:
         return formatExpr(["NOT", this.walk(ctx, node.operand, node)], {

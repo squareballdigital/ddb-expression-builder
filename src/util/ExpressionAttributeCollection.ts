@@ -1,33 +1,35 @@
-export type ExpressionAttributeCollectionInit<Value> = Iterable<
-  [string, Value]
->;
+import { ExpressionAttributeMap } from "./ExpressionAttributeMap.js";
 
 const MAX_KEY_LENGTH = 15;
 
 export class ExpressionAttributeCollection<Value>
-  implements Iterable<[string, Value]>
+  implements ExpressionAttributeMap<Value>
 {
   private readonly prefix: string;
   private readonly preserve: boolean;
-  private readonly values = new Map<string, Value>();
+  private readonly _values = new Map<string, Value>();
+
+  public get size(): number {
+    return this._values.size;
+  }
 
   constructor(
     prefix: string,
-    values?: ExpressionAttributeCollectionInit<Value>,
+    values?: Iterable<[string, Value]>,
     preserve = false
   ) {
+    this._values = new Map<string, Value>(values ?? []);
     this.prefix = prefix;
-    this.values = new Map<string, Value>(values ?? []);
     this.preserve = preserve;
   }
 
-  public [Symbol.iterator](): Iterator<[string, Value], any, undefined> {
-    return this.values[Symbol.iterator]();
+  public [Symbol.iterator](): IterableIterator<[string, Value]> {
+    return this._values[Symbol.iterator]();
   }
 
   public add(value: Value): string {
     let key: string | undefined;
-    for (const [k, v] of this.values.entries()) {
+    for (const [k, v] of this._values.entries()) {
       if (v === value) {
         key = k;
         break;
@@ -36,19 +38,47 @@ export class ExpressionAttributeCollection<Value>
     if (!key) {
       key = this.getKey(value);
     }
-    this.values.set(key, value);
+    this._values.set(key, value);
     return key;
   }
 
-  public toJSON(): Record<string, Value> | undefined {
-    if (!this.values.size) {
-      return;
-    }
-    return Object.fromEntries(this.values);
+  public entries(): IterableIterator<[string, Value]> {
+    return this._values.entries();
+  }
+
+  public forEach(
+    callbackfn: (
+      value: Value,
+      key: string,
+      map: ReadonlyMap<string, Value>
+    ) => void,
+    thisArg?: any
+  ): void {
+    this._values.forEach(callbackfn, thisArg);
+  }
+
+  public get(key: string): Value | undefined {
+    return this._values.get(key);
+  }
+
+  public has(key: string): boolean {
+    return this._values.has(key);
+  }
+
+  public keys(): IterableIterator<string> {
+    return this._values.keys();
+  }
+
+  public toObject(): Record<string, Value> {
+    return Object.fromEntries(this._values);
+  }
+
+  public values(): IterableIterator<Value> {
+    return this._values.values();
   }
 
   private getKey(value: Value): string {
-    const baseKey = `${this.prefix}f${this.values.size}`;
+    const baseKey = `${this.prefix}f${this._values.size}`;
     if (!this.preserve || typeof value !== "string") {
       return baseKey;
     }

@@ -95,7 +95,7 @@ export class UpdateExpressionBuilder<T> {
         );
 
       case NodeType.ConstantValue:
-        return ctx.addValue(node.value);
+        return ctx.values.add(node.value);
 
       case NodeType.IfNotExists:
         return formatExpr([
@@ -116,7 +116,7 @@ export class UpdateExpressionBuilder<T> {
         ]);
 
       case NodeType.Name:
-        return ctx.addName(...node.name);
+        return node.name.map((x) => ctx.names.add(x)).join(".");
 
       case NodeType.Subtract:
         return formatExpr(

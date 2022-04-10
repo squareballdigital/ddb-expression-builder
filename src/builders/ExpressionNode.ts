@@ -166,7 +166,7 @@ export class ExpressionNode
     });
   }
 
-  public in(values: any[]): Node<LogicExpression> {
+  public in(...values: any[]): Node<LogicExpression> {
     return new ExpressionNode({
       type: NodeType.In,
       value: this.expr,
