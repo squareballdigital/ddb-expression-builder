@@ -1,10 +1,13 @@
-import { NodeType } from "./NodeType";
+import { NodeType } from "../expressions/expressions";
 
 // see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.OperatorsAndFunctions.html#Expressions.OperatorsAndFunctions.Precedence
 
 let n = 0;
 const precedence: Record<NodeType, number> = {
-  [NodeType.SetClause]: ++n,
+  [NodeType.AddClause]: n,
+  [NodeType.DeleteClause]: n,
+  [NodeType.RemoveClause]: n,
+  [NodeType.SetClause]: n,
   [NodeType.Or]: ++n,
   [NodeType.And]: ++n,
   [NodeType.Not]: ++n,
@@ -17,7 +20,7 @@ const precedence: Record<NodeType, number> = {
   [NodeType.ListAppend]: n,
   [NodeType.Between]: ++n,
   [NodeType.In]: ++n,
-  [NodeType.Assignment]: ++n,
+  [NodeType.SetClause]: ++n,
   [NodeType.Equal]: ++n,
   [NodeType.NotEqual]: n,
   [NodeType.LessThan]: n,

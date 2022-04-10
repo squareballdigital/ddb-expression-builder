@@ -1,12 +1,13 @@
-import { ExpressionContext } from "../expressions/ExpressionContext";
+import { ExpressionContext } from "../builders/ExpressionContext";
 import {
   ExpressionAttributeCollection,
   ExpressionAttributeCollectionInit,
 } from "./ExpressionAttributeCollection";
+import { ExpressionCommandInputBase } from "./ExpressionCommandInputBase";
 
 export class ExpressionDictionary implements ExpressionContext {
-  private readonly names: ExpressionAttributeCollection<string>;
-  private readonly values: ExpressionAttributeCollection<any>;
+  public readonly names: ExpressionAttributeCollection<string>;
+  public readonly values: ExpressionAttributeCollection<any>;
 
   constructor(
     names?: ExpressionAttributeCollectionInit<string>,
@@ -23,5 +24,21 @@ export class ExpressionDictionary implements ExpressionContext {
 
   public addValue(value: unknown): string {
     return this.values.add(value);
+  }
+
+  public toJSON(): ExpressionCommandInputBase {
+    const names = this.names.toJSON();
+    const values = this.values.toJSON();
+
+    const obj: ExpressionCommandInputBase = {};
+
+    if (names) {
+      obj.ExpressionAttributeNames = names;
+    }
+    if (values) {
+      obj.ExpressionAttributeValues = values;
+    }
+
+    return obj;
   }
 }

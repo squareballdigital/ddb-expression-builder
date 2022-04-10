@@ -1,17 +1,19 @@
 {
   "name": "dynamodb-plus",
   "private": true,
+  "type": "module",
   "scripts": {
     "compile": "tsc"
   },
   "devDependencies": {
-    "@types/node": "^17.0.23",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
     "@typescript-eslint/parser": "^5.17.0",
     "eslint": "^8.12.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-prettier": "^4.0.0",
+    "ignore": "^5.2.0",
+    "minimist": "^1.2.6",
     "prettier": "^2.6.2",
     "typescript": "^4.6.3"
   }
