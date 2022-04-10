@@ -1,7 +1,24 @@
 {
-  "name": "dynamodb-plus",
-  "private": true,
+  "name": "ddb-expression-builder",
+  "version": "0.1.0",
+  "author": {
+    "name": "Gordon Leigh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gordonmleigh/ddb-expression-builder.git"
+  },
+  "homepage": "https://github.com/gordonmleigh/ddb-expression-builder#readme",
   "type": "module",
+  "exports": {
+    ".": "./lib/index.js"
+  },
+  "files": [
+    "src/",
+    "!src/**/*.test.ts",
+    "lib/",
+    "!lib/**/*.test.*"
+  ],
   "scripts": {
     "build": "npm run clean && npm run index && npm run compile && npm run lint && npm run test",
     "clean": "rm -rf lib/",
