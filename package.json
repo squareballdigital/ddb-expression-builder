@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "compile": "tsc"
+    "compile": "tsc",
+    "index": "node makeIndex.js src/"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.17.0",

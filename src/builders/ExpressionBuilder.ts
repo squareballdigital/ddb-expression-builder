@@ -1,11 +1,11 @@
 import {
   LogicExpression,
   UpdateClauseExpression,
-} from "../expressions/expressions";
-import { Node } from "./builders";
-import { ExpressionContext } from "./ExpressionContext";
-import { LogicExpressionBuilder } from "./LogicExpressionBuilder";
-import { UpdateExpressionBuilder } from "./UpdateExpressionBuilder";
+} from "../expressions/expressions.js";
+import { Node } from "./builders.js";
+import { ExpressionContext } from "./ExpressionContext.js";
+import { LogicExpressionBuilder } from "./LogicExpressionBuilder.js";
+import { UpdateExpressionBuilder } from "./UpdateExpressionBuilder.js";
 
 export class ExpressionBuilder {
   public static conditionExpression<T>(

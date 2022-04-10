@@ -2,13 +2,13 @@ import {
   LogicExpression,
   LogicValueExpression,
   NodeType,
-} from "../expressions/expressions";
-import { formatExpr } from "../internal/formatExpr";
-import { DeepIndexType, DeepKeyPaths } from "../util/DeepKeyPaths";
-import { getPrecedence } from "../util/getPrecedence";
-import { LogicNameNode, LogicValueNode, Node } from "./builders";
-import { ExpressionContext } from "./ExpressionContext";
-import { ExpressionNode } from "./ExpressionNode";
+} from "../expressions/expressions.js";
+import { formatExpr } from "../internal/formatExpr.js";
+import { DeepIndexType, DeepKeyPaths } from "../util/DeepKeyPaths.js";
+import { getPrecedence } from "../util/getPrecedence.js";
+import { LogicNameNode, LogicValueNode, Node } from "./builders.js";
+import { ExpressionContext } from "./ExpressionContext.js";
+import { ExpressionNode } from "./ExpressionNode.js";
 
 export class LogicExpressionBuilder<T> {
   public static build<T>(

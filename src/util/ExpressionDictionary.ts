@@ -1,9 +1,9 @@
-import { ExpressionContext } from "../builders/ExpressionContext";
+import { ExpressionContext } from "../builders/ExpressionContext.js";
 import {
   ExpressionAttributeCollection,
   ExpressionAttributeCollectionInit,
-} from "./ExpressionAttributeCollection";
-import { ExpressionCommandInputBase } from "./ExpressionCommandInputBase";
+} from "./ExpressionAttributeCollection.js";
+import { ExpressionCommandInputBase } from "./ExpressionCommandInputBase.js";
 
 export class ExpressionDictionary implements ExpressionContext {
   public readonly names: ExpressionAttributeCollection<string>;

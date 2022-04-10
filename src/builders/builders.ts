@@ -8,7 +8,7 @@ import {
   RemoveClauseExpression,
   SetClauseExpression,
   UpdateValueExpression,
-} from "../expressions/expressions";
+} from "../expressions/expressions.js";
 
 export interface Node<T> {
   expr: T;

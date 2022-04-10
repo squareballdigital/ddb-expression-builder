@@ -8,7 +8,7 @@ import {
   NodeType,
   RemoveClauseExpression,
   SetClauseExpression,
-} from "../expressions/expressions";
+} from "../expressions/expressions.js";
 import {
   LogicNameNode,
   LogicValueNode,
@@ -19,7 +19,7 @@ import {
   UpdateValueNode,
   ValueLogicBuilder,
   ValueUpdateBuilder,
-} from "./builders";
+} from "./builders.js";
 
 export class ExpressionNode
   implements

@@ -1,3 +1,4 @@
+// AUTO-GENERATED node ../makeIndex.js
 export * from "./builders/builders.js";
 export * from "./builders/ExpressionBuilder.js";
 export * from "./builders/ExpressionContext.js";

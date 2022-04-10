@@ -5,6 +5,7 @@ import { basename, extname, join, relative } from "path";
 import { fileURLToPath } from "url";
 
 const MODULE_ENDING_SPECIFIER = ".js";
+const QUOTE_CHAR = '"';
 
 const opts = minimist(process.argv.slice(2));
 const dirs = opts._.length ? opts._ : [process.cwd()];
@@ -31,7 +32,7 @@ function makeIndex(dir, maxDepth, comment) {
   }
 
   const index = [`// AUTO-GENERATED ${comment}`].concat(
-    files.map((x) => `export * from './${x}';`)
+    files.map((x) => `export * from ${QUOTE_CHAR}./${x}${QUOTE_CHAR};`)
   );
 
   const output = index.join("\n") + "\n";
