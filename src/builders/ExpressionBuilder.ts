@@ -10,7 +10,7 @@ import { ExpressionContext } from "./ExpressionContext.js";
 import { LogicExpressionBuilder } from "./LogicExpressionBuilder.js";
 import { UpdateExpressionBuilder } from "./UpdateExpressionBuilder.js";
 
-export class ExpressionBuilder implements ExpressionContext {
+export class ExpressionBuilder<T> implements ExpressionContext {
   public readonly names: ExpressionAttributeMap<string>;
   public readonly values: ExpressionAttributeMap<any>;
 
@@ -34,13 +34,13 @@ export class ExpressionBuilder implements ExpressionContext {
     return ret;
   }
 
-  public conditionExpression<T>(
+  public conditionExpression(
     builder: (b: LogicExpressionBuilder<T>) => Node<LogicExpression>
   ): string {
     return LogicExpressionBuilder.build(this, builder);
   }
 
-  public updateExpression<T>(
+  public updateExpression(
     builder: (b: UpdateExpressionBuilder<T>) => Node<UpdateClauseExpression>[]
   ): string {
     return UpdateExpressionBuilder.build(this, builder as any);
