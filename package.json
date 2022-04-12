@@ -10,8 +10,12 @@
   },
   "homepage": "https://github.com/gordonmleigh/ddb-expression-builder#readme",
   "type": "module",
+  "main": "./lib/cjs/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js"
+    "types": "./lib/index.d.ts",
+    "import": "./lib/index.js",
+    "default": "./lib/cjs/index.js"
   },
   "files": [
     "src/",
@@ -20,9 +24,10 @@
     "!lib/**/*.test.*"
   ],
   "scripts": {
-    "build": "npm run clean && npm run index && npm run compile && npm run lint && npm run test",
+    "build": "npm run clean && npm run index && npm run compile && npm run compile:cjs && npm run lint && npm run test",
     "clean": "rm -rf lib/",
     "compile": "tsc",
+    "compile:cjs": "tsc -p tsconfig.cjs.json",
     "index": "node makeIndex.js src/",
     "lint": "eslint src/ --ext=ts",
     "test": "jest --verbose"
