@@ -11,6 +11,17 @@ import { LogicExpressionBuilder } from "./LogicExpressionBuilder.js";
 import { UpdateExpressionBuilder } from "./UpdateExpressionBuilder.js";
 
 export class ExpressionBuilder<T> implements ExpressionContext {
+  public static fromCommand<T>(
+    command: ExpressionCommandInputBase
+  ): ExpressionBuilder<T> {
+    return new ExpressionBuilder(
+      command.ExpressionAttributeNames &&
+        Object.entries(command.ExpressionAttributeNames),
+      command.ExpressionAttributeValues &&
+        Object.entries(command.ExpressionAttributeValues)
+    );
+  }
+
   public readonly names: ExpressionAttributeMap<string>;
   public readonly values: ExpressionAttributeMap<any>;
 
