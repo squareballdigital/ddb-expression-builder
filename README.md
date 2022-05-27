@@ -1,11 +1,11 @@
-# ddb-expression-builder
+# @squareball/ddb-expression-builder
 
 Use this package to build **type-safe** expressions for DynamoDB!
 
 ## Example
 
 ```typescript
-import { ExpressionBuilder } from "ddb-expression-builder";
+import { ExpressionBuilder } from "@squareball/ddb-expression-builder";
 
 const repo = {
   id: 42,

@@ -1,14 +1,17 @@
 {
-  "name": "ddb-expression-builder",
+  "name": "@squareball/ddb-expression-builder",
   "version": "0.1.2",
+  "publishConfig": {
+    "access": "public"
+  },
   "author": {
     "name": "Gordon Leigh"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gordonmleigh/ddb-expression-builder.git"
+    "url": "https://github.com/squareballdigital/ddb-expression-builder.git"
   },
-  "homepage": "https://github.com/gordonmleigh/ddb-expression-builder#readme",
+  "homepage": "https://github.com/squareballdigital/ddb-expression-builder#readme",
   "type": "module",
   "main": "./lib/cjs/index.js",
   "types": "./lib/index.d.ts",
